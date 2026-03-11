@@ -1,0 +1,129 @@
+{
+  "name": "ccopen",
+  "displayName": "ccopen - Claude Code Account Switcher",
+  "description": "Switch between multiple Claude Code accounts",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "publisher": "your-publisher-id",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roceil/VScode-ccopen.git"
+  },
+  "keywords": [
+    "claude",
+    "claude code",
+    "account",
+    "switch",
+    "ai"
+  ],
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ccopen-sidebar",
+          "title": "Claude Code Accounts",
+          "icon": "images/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "ccopen-sidebar": [
+        {
+          "id": "ccopen.accountsView",
+          "name": "Accounts"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "ccopen.switch",
+        "title": "ccopen: Switch Account"
+      },
+      {
+        "command": "ccopen.save",
+        "title": "ccopen: Save Current Account",
+        "icon": "$(add)"
+      },
+      {
+        "command": "ccopen.remove",
+        "title": "ccopen: Remove Account"
+      },
+      {
+        "command": "ccopen.refresh",
+        "title": "ccopen: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "ccopen.switchItem",
+        "title": "Switch to this Account",
+        "icon": "$(arrow-swap)"
+      },
+      {
+        "command": "ccopen.removeItem",
+        "title": "Remove Account",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "ccopen.addNew",
+        "title": "ccopen: Add New Account",
+        "icon": "$(person-add)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "ccopen.save",
+          "when": "view == ccopen.accountsView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "ccopen.addNew",
+          "when": "view == ccopen.accountsView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "ccopen.refresh",
+          "when": "view == ccopen.accountsView",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "ccopen.switchItem",
+          "when": "view == ccopen.accountsView && viewItem == account",
+          "group": "inline@1"
+        },
+        {
+          "command": "ccopen.removeItem",
+          "when": "view == ccopen.accountsView",
+          "group": "inline@2"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx @vscode/vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.37",
+    "@types/vscode": "^1.110.0",
+    "typescript": "^5.9.3"
+  }
+}
