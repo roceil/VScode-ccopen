@@ -96,7 +96,7 @@ function switchAccount(name: string): void {
 
 function saveCurrentAccount(name: string): void {
   const dir = validateAccountPath(name);
-  fs.mkdirSync(dir, { recursive: true });
+  fs.mkdirSync(dir, { recursive: true, mode: 0o700 });
 
   // Save oauthAccount from ~/.claude.json
   const claudeJson = JSON.parse(fs.readFileSync(CLAUDE_JSON, 'utf8'));
@@ -105,9 +105,10 @@ function saveCurrentAccount(name: string): void {
   }
   fs.writeFileSync(
     path.join(dir, 'oauth_account.json'),
-    JSON.stringify(claudeJson.oauthAccount, null, 2)
+    JSON.stringify(claudeJson.oauthAccount, null, 2),
+    { mode: 0o600 }
   );
-  fs.writeFileSync(path.join(dir, 'email.txt'), claudeJson.oauthAccount.emailAddress ?? 'unknown');
+  fs.writeFileSync(path.join(dir, 'email.txt'), claudeJson.oauthAccount.emailAddress ?? 'unknown', { mode: 0o600 });
 
   // Save Keychain credential
   const user = getCurrentUser();
@@ -116,7 +117,7 @@ function saveCurrentAccount(name: string): void {
     fs.rmSync(dir, { recursive: true });
     throw new Error('Cannot find Claude Code credentials in Keychain');
   }
-  fs.writeFileSync(path.join(dir, 'keychain_credential.txt'), cred);
+  fs.writeFileSync(path.join(dir, 'keychain_credential.txt'), cred, { mode: 0o600 });
 }
 
 function removeAccount(name: string): void {

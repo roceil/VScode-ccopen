@@ -79,7 +79,7 @@
 1. 將已儲存的 `oauthAccount` 寫回 `~/.claude.json`
 2. 更新 macOS Keychain 中的 `Claude Code-credentials` 項目
 
-憑證的儲存方式與 Claude Code 本身相同，不會以明文額外儲存密碼。
+> **安全提醒：** 為了實現帳號切換，Keychain 中的憑證 token 會以明文備份至 `~/.claude/accounts/<名稱>/keychain_credential.txt`。請確保你的電腦帳號有適當的存取保護，並避免將 `~/.claude/accounts/` 目錄分享或同步至雲端。
 
 ---
 
